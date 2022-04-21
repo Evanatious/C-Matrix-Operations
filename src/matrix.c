@@ -48,7 +48,7 @@ void rand_matrix(matrix *result, unsigned int seed, double low, double high) {
  * You may assume `row` and `col` are valid. Note that the matrix is in row-major order.
  */
 double get(matrix *mat, int row, int col) {
-    // Task 1.1 TODO
+    return mat->data[row * mat->cols + col];
 }
 
 /*
@@ -56,7 +56,8 @@ double get(matrix *mat, int row, int col) {
  * `col` are valid. Note that the matrix is in row-major order.
  */
 void set(matrix *mat, int row, int col, double val) {
-    // Task 1.1 TODO
+    mat->data[row * mat->cols + col] = val;
+    return;
 }
 
 /*
