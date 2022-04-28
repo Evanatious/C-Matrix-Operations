@@ -236,17 +236,47 @@ int sub_matrix(matrix *result, matrix *mat1, matrix *mat2) {
  */
 int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     // Task 1.6 TODO
+    for(int i=0; i<4; i++) {
+        printf("mat1 %f ", mat1->data[i]);
+    }
+    printf("\n");
+
     int i, j, k;
     for(i = 0; i < mat1->rows; i++) {
         for(j = 0; j < mat2->cols; j++) {
             int val = 0;
             for(k = 0; k < mat1->cols; k++) {
-                val += (get(mat1, i, k) * get(mat2, k, j));
+                printf("i: %d j: %d k: %d get: %f\n", i, j, k, get(mat1, i, k));
+                printf("i: %d j: %d k: %d get: %f\n", i, j, k, get(mat2, k, j));
+                val += get(mat1, i, k) * get(mat2, k, j);
             }
             set(result, i, j, val);
         }
     }
+
+    for(int i=0; i<4; i++) {
+        printf("mat1 %f ", mat1->data[i]);
+    }
+    printf("\n");
+
+    //printf("mul 0,0 = %f\n", get(result, 0, 0));
+    //printf("mul 0,1 = %f\n", get(result, 0, 1));
+    //printf("mul 1,0 = %f\n", get(result, 1, 0));
+    //printf("mul 1,1 = %f\n", get(result, 1, 1));
+
     return 0;
+
+
+
+
+    void multMat1( int n, float *A, float *B, float *C ) {
+    int i,j,k;
+    /* This is ijk loop order. */
+    for( i = 0; i < n; i++ )
+        for( j = 0; j < n; j++ )
+            for( k = 0; k < n; k++ )
+                C[i+j*n] += A[i+k*n]*B[k+j*n];
+    }
 }
 
 /*
@@ -258,26 +288,60 @@ int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
  */
 int pow_matrix(matrix *result, matrix *mat, int pow) {
     // Task 1.6 TODO
-    /*
-    if (pow == 0) {
-        // IDENTITY MATRIX
-        int i = 0;
-        fill_matrix(result, 0);
-        for(; i < mat->rows; i++) {
-            set(result, i, i, 1);
-        }
-        return 0;
+    // Set result to be the identity matrix
+    int i = 0;
+    result->rows = mat->rows;
+    result->cols = mat->cols;
+    fill_matrix(result, 0);
+    for(; i < mat->rows; i++) {
+        set(result, i, i, 1);
     }
-    if (pow == 1) {
-        int i = 0;
-        for (; i < mat->rows * mat->cols; i++) {
-            (result->data)[i] = (mat->data)[i];
-        }
-        return 0;
-    }
-    */
-    mul_matrix(result, mat, pow_matrix(temp, mat, pow-1))
+
     
+
+
+
+    // print initial state of result
+    //printf("0,0 = %f\n", get(result, 0, 0));
+    //printf("0,1 = %f\n", get(result, 0, 1));
+    //printf("1,0 = %f\n", get(result, 1, 0));
+    //printf("1,1 = %f\n", get(result, 1, 1));      
+
+    int j = 0;
+
+    matrix *placeholder = malloc(sizeof(matrix));
+    double* d = calloc(mat->rows * mat->cols, __SIZEOF_DOUBLE__);
+    if (!d) {
+        return -2;
+    }
+    placeholder->data = d;
+
+    for (; j < pow; j++) {
+        // copy result into placeholder
+        
+
+        memcpy(placeholder, result, sizeof(*result));
+        // copy data into placeholder matrix
+        printf("m 0,0 = %f\n", get(mat, 0, 0));
+        printf("m 0,1 = %f\n", get(mat, 0, 1));
+        printf("m 1,0 = %f\n", get(mat, 1, 0));
+        printf("m 1,1 = %f\n", get(mat, 1, 1));
+
+        memcpy(placeholder->data, result->data, sizeof(*(result->data)));
+        //set(placeholder, 0, 0, 17);
+        printf("p 0,0 = %f\n", get(placeholder, 0, 0));
+        printf("p 0,1 = %f\n", get(placeholder, 0, 1));
+        printf("p 1,0 = %f\n", get(placeholder, 1, 0));
+        printf("p 1,1 = %f\n", get(placeholder, 1, 1));
+        mul_matrix(result, placeholder, mat);
+
+        printf("0,0 = %f\n", get(result, 0, 0));
+        printf("0,1 = %f\n", get(result, 0, 1));
+        printf("1,0 = %f\n", get(result, 1, 0));
+        printf("1,1 = %f\n", get(result, 1, 1));
+    }
+    return 0;
+   
 
 
     /*

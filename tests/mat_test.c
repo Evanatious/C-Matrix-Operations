@@ -259,6 +259,11 @@ void pow_test(void) {
   set(mat, 1, 0, 1);
   set(mat, 1, 1, 0);
   pow_matrix(result, mat, 3);
+  printf("0,0 = %f\n", get(result, 0, 0));
+  printf("0,1 = %f\n", get(result, 0, 1));
+  printf("1,0 = %f\n", get(result, 1, 0));
+  printf("1,1 = %f\n", get(result, 1, 1));
+
   CU_ASSERT_EQUAL(get(result, 0, 0), 3);
   CU_ASSERT_EQUAL(get(result, 0, 1), 2);
   CU_ASSERT_EQUAL(get(result, 1, 0), 2);
