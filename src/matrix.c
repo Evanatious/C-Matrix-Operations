@@ -297,9 +297,6 @@ int pow_matrix(matrix *result, matrix *mat, int pow) {
         set(result, i, i, 1);
     }
 
-    
-
-
 
     // print initial state of result
     //printf("0,0 = %f\n", get(result, 0, 0));
